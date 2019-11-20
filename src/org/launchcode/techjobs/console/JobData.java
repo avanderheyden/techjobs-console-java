@@ -49,21 +49,23 @@ public class JobData {
 
     public static ArrayList<HashMap<String, String>> findAll() {
 
+
         // load data, if not already loaded
         loadData();
 
         return allJobs;
     }
 
+
     /**
      * Returns results of search the jobs data by key/value, using
      * inclusion of the search term.
-     *
+     * <p>
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
      *
-     * @param column   Column that should be searched.
-     * @param value Value of teh field to search for
+     * @param column Column that should be searched.
+     * @param value  Value of teh field to search for
      * @return List of all jobs matching the criteria
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
@@ -78,17 +80,32 @@ public class JobData {
             String aValue = row.get(column);
 
             if (aValue.contains(value)) {
-                jobs.add(row);
+                    jobs.add(row);
             }
         }
 
         return jobs;
     }
 
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+        loadData();
+
+        ArrayList<HashMap<String, String>> allValues = new ArrayList<>();
+        for (HashMap<String, String> job : allJobs) {
+            for (String Key : job.keySet()) {
+                String keyValue= job.get(Key);
+                if (keyValue.toLowerCase().contains(value.toLowerCase())) {
+                    allValues.add(job);
+                }
+
+            }
+        }
+        return allValues;
+    }
     /**
      * Read in data from a CSV file and store it in a list
      */
-    private static void loadData() {
+    private static void loadData () {
 
         // Only load data once
         if (isDataLoaded) {
@@ -125,5 +142,4 @@ public class JobData {
             e.printStackTrace();
         }
     }
-
 }
