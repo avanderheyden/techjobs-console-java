@@ -97,7 +97,6 @@ public class JobData {
                 if (keyValue.toLowerCase().contains(value.toLowerCase()) && !allValues.contains(job)) {
                     allValues.add(job);
                 }
-
             }
         }
         return allValues;
